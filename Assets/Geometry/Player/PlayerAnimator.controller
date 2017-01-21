@@ -14,12 +14,15 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+<<<<<<< HEAD
   - m_Name: isWalking
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+=======
+>>>>>>> 5c1e2ed251a3427784b29737e47c12e06b9cccfe
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Main
