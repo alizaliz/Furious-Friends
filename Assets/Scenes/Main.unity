@@ -125,7 +125,7 @@ MonoBehaviour:
   m_playerPrefab: {fileID: 1478783593888922, guid: dd4b893bd5d9d4dd38e91112b1768d9c,
     type: 2}
   m_aiPrefab: {fileID: 1017232610301146, guid: a887fb20f8d3443889eddcdb59784917, type: 2}
-  m_MaxAISpawnCount: 100
+  m_MaxAISpawnCount: 10
   m_groundArea: {fileID: 882266935}
 --- !u!4 &433282859
 Transform:
