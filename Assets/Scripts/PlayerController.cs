@@ -6,20 +6,28 @@ public class PlayerController : MonoBehaviour {
 
 	public float m_Speed = 1;
 	public float m_TurnSpeed = 2;
+	public Transform m_SpawnPoint;     
+	[HideInInspector] public GameObject m_Instance; 
+	[HideInInspector] public int m_PlayerNumber;            // This specifies which player this the manager for.
+
 	private string m_MovementAxisName;     
 	private string m_TurnAxisName;         
 	private Rigidbody m_Rigidbody;  
 	private float m_MovementInputValue;    
 	private float m_TurnInputValue;    
 
+
 	// Use this for initialization
 	void Start () {
 		m_Rigidbody = GetComponent<Rigidbody>();
 		m_MovementInputValue = 0f;
-		m_MovementAxisName = "Vertical";
-		m_TurnAxisName = "Horizontal";
+		m_MovementAxisName = "Vertical" + m_PlayerNumber;
+		m_TurnAxisName = "Horizontal" + m_PlayerNumber;
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
+
+	
+
 	}
 	
 	// Update is called once per frame
@@ -68,6 +76,7 @@ public class PlayerController : MonoBehaviour {
 			AIController ai = other.GetComponent<AIController>();
 			ai.m_target = m_Rigidbody.transform;
 			ai.m_state = AIController.state.following;
+			 
 		}
 	}
 }

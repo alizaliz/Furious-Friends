@@ -59,13 +59,13 @@ public class AIController : MonoBehaviour {
 
 	void Chilling ()
 	{
-		
-		if (!m_agent.pathPending && m_agent.pathStatus == NavMeshPathStatus.PathComplete && (Time.time - m_prevRestTime > m_pathDelay) )
+		// Check -> Last path is complete AND no new path AND pad time exceeded 
+		if ((m_agent.pathStatus == NavMeshPathStatus.PathComplete ) && !m_agent.pathPending && (Time.time - m_prevRestTime > m_pathDelay) )
 		{
 				m_idleDest *= -1; // Switch direction
-				m_agent.SetDestination (m_Rigidbody.position  + m_idleDest);
+				m_agent.SetDestination (m_Rigidbody.position  + m_idleDest); // set destingnation
 
-				//agent.speed = Random.Range (1, gent.speed);
+
 
 				m_prevRestTime = Time.time; // update time
 
@@ -74,15 +74,18 @@ public class AIController : MonoBehaviour {
 	}
 
 	void Following (){
-		// Check -> Last path is complete
+		// Check -> Last path is complete AND no new path AND pad time exceeded AND target has new destination
 		if ((  m_agent.pathStatus == NavMeshPathStatus.PathComplete ) && !m_agent.pathPending && (Time.time - m_prevRestTime > m_pathDelay) && (m_agent.destination != m_target.position)) {
-			m_agent.SetDestination (m_target.position);
+
+			m_agent.SetDestination (m_target.position); // set destingnation
 
 			m_prevRestTime = Time.time; // update time
 
 		}
 	}
 
-	//private Vector3 CalcTarget(){
-	//}
+	void OnTriggerEnter(Collider other) {
+		if (other.attachedRigidbody)
+			other.attachedRigidbody.AddForce(Vector3.up * 10);        
+	}
 }
