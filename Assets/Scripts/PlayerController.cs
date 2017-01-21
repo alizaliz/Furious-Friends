@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	public float m_Speed = 1;
+    [Header("Cone Raycasting")]
+    public int m_ConeRays;
+    public float m_ConeAngle;
+
+    public float m_Speed = 1;
 	public float m_TurnSpeed = 2;
 	  
 	[HideInInspector] public GameObject m_Instance; 
@@ -42,7 +46,6 @@ public class PlayerController : MonoBehaviour {
 		m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
 		m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
 		m_waved = Input.GetButton (m_FireButt);
-	
     }
 
 
@@ -57,7 +60,28 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Wave(){
-		if (m_waved == true && !anim.GetBool("isWaving") )
+        // Check for raycast hit
+        HashSet<RaycastHit> coneHits = new HashSet<RaycastHit>();
+
+        float forwardAngle = Mathf.Atan2(transform.forward.z, transform.forward.x);
+        forwardAngle -= Mathf.Deg2Rad * 90.0f;
+        float startAngleOffset = (Mathf.Deg2Rad * m_ConeAngle) / 2.0f;
+        for (int i = 0; i < m_ConeRays; i++)
+        {
+            float newAngle = forwardAngle + startAngleOffset + (i * (Mathf.Deg2Rad * m_ConeAngle / m_ConeRays));
+            Vector3 rayDir = new Vector3(Mathf.Cos(newAngle), 0.0f, Mathf.Sin(newAngle));
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, rayDir, 10.0f);
+
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.transform.CompareTag("Friend"))
+                {
+                    coneHits.Add(hit);
+                }
+            }
+        }
+
+        if (m_waved == true && !anim.GetBool("isWaving") )
 		{
 			anim.SetBool("isWaving", true);
 			Debug.Log("Waving");
