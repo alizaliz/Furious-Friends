@@ -78,7 +78,11 @@ public class AIController : MonoBehaviour {
 
 	void Following (){
 		// Check -> Last path is complete AND no new path AND pad time exceeded AND target has new destination
-		if ((  m_agent.pathStatus == NavMeshPathStatus.PathComplete ) && !m_agent.pathPending && (Time.time - m_prevRestTime > m_pathDelay) && (m_agent.destination != m_target.position)) {
+		if ((  m_agent.pathStatus == NavMeshPathStatus.PathComplete ) &&
+               !m_agent.pathPending &&
+               (Time.time - m_prevRestTime > m_pathDelay) &&
+               (m_agent.destination != m_target.position &&
+               PlayerController.m_looking == true)) {
 
 			m_agent.SetDestination (m_target.position); // set destingnation
 

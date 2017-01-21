@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     public Animator anim;
 
 	private bool m_waved;
+    public static bool m_looking;
 
     // Use this for initialization
     void Start () {
@@ -35,9 +36,9 @@ public class PlayerController : MonoBehaviour {
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
 
-		m_waved = false;	
-
-	}
+		m_waved = false;
+        m_looking = false;
+    }
 
 	// Update is called once per frame
 	private void Update()
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour {
         float forwardAngle = Mathf.Atan2(transform.forward.z, transform.forward.x);
         forwardAngle -= Mathf.Deg2Rad * 90.0f;
         float startAngleOffset = (Mathf.Deg2Rad * m_ConeAngle) / 2.0f;
+
         for (int i = 0; i < m_ConeRays; i++)
         {
             float newAngle = forwardAngle + startAngleOffset + (i * (Mathf.Deg2Rad * m_ConeAngle / m_ConeRays));
@@ -77,17 +79,17 @@ public class PlayerController : MonoBehaviour {
                 if (hit.transform.CompareTag("Friend"))
                 {
                     coneHits.Add(hit);
+                    m_looking = true;
                 }
             }
         }
 
-        if (m_waved == true && !anim.GetBool("isWaving") )
-		{
-			anim.SetBool("isWaving", true);
-			Debug.Log("Waving");
-		}
-			
-	}
+        if (m_waved == true && !anim.GetBool("isWaving"))
+        {
+            anim.SetBool("isWaving", true);
+            Debug.Log("Waving");
+        }
+    }
 
 	private void Move()
 	{
