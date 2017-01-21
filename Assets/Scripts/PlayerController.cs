@@ -14,20 +14,17 @@ public class PlayerController : MonoBehaviour {
 	private string m_TurnAxisName;         
 	private Rigidbody m_Rigidbody;  
 	private float m_MovementInputValue;    
-	private float m_TurnInputValue;    
+	private float m_TurnInputValue;
+    private float m_DeadHeight = -5.0f;
 
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		m_Rigidbody = GetComponent<Rigidbody>();
 		m_MovementInputValue = 0f;
 		m_MovementAxisName = "Vertical" + m_PlayerNumber;
 		m_TurnAxisName = "Horizontal" + m_PlayerNumber;
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
-
-	
-
 	}
 	
 	// Update is called once per frame
@@ -44,7 +41,10 @@ public class PlayerController : MonoBehaviour {
 		Move();
 		Turn ();
 
-
+        if (transform.position.y <= m_DeadHeight)
+        {
+            RespawnPlayer();
+        }
 	}
 
 	private void Move()
@@ -56,6 +56,11 @@ public class PlayerController : MonoBehaviour {
 		m_Rigidbody.MovePosition (m_Rigidbody.position + movement);
 	}
 
+    private void RespawnPlayer()
+    {
+        transform.position = m_SpawnPoint.position;
+        transform.rotation = m_SpawnPoint.rotation;
+    }
 
 	private void Turn()
 	{
@@ -76,7 +81,8 @@ public class PlayerController : MonoBehaviour {
 			AIController ai = other.GetComponent<AIController>();
 			ai.m_target = m_Rigidbody.transform;
 			ai.m_state = AIController.state.following;
-			 
+            ai.LoveTrigger();
+            Debug.Log("Triggered");
 		}
 	}
 }

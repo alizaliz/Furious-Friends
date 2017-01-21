@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour {
 	public int m_MaxAISpawnCount;
 	public GameObject m_groundArea;
 
-
-
 	private List<GameObject> m_AIList;
 	private float spawnPadValue = 0.0f;
 
@@ -58,7 +56,6 @@ public class GameManager : MonoBehaviour {
 			m_players[i].Setup();
 		}
 	}
-
 
 	private void SetCameraTargets()
 	{
