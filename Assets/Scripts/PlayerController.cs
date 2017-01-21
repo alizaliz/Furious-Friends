@@ -6,66 +6,65 @@ public class PlayerController : MonoBehaviour {
 
 	public float m_Speed = 1;
 	public float m_TurnSpeed = 2;
-	public Transform m_SpawnPoint;     
+	  
 	[HideInInspector] public GameObject m_Instance; 
 	[HideInInspector] public int m_PlayerNumber;            // This specifies which player this the manager for.
 
 	private string m_MovementAxisName;     
 	private string m_TurnAxisName;         
+	private string m_FireButt;   
 	private Rigidbody m_Rigidbody;  
 	private float m_MovementInputValue;    
 	private float m_TurnInputValue;
-    public Animator anim;
+    private Animator anim;
 
+	private bool m_waved;
 
-<<<<<<< HEAD
-	// Use this for initialization
-	void Start () {
-=======
     // Use this for initialization
     void Start () {
->>>>>>> 4137381427c2652b32f469724ef84c0268ea371a
+
 		m_Rigidbody = GetComponent<Rigidbody>();
 		m_MovementInputValue = 0f;
 		m_MovementAxisName = "Vertical" + m_PlayerNumber;
 		m_TurnAxisName = "Horizontal" + m_PlayerNumber;
+		m_FireButt = "Fire" + + m_PlayerNumber;
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
-<<<<<<< HEAD
 
+		m_waved = false;
+		anim = GetComponent<Animator> ();
 	
 
 	}
-=======
-    }
->>>>>>> 4137381427c2652b32f469724ef84c0268ea371a
-	
+
 	// Update is called once per frame
 	private void Update()
 	{
 		// Store the player's input and make sure the audio for the engine is playing.
 		m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
 		m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
-
-        if (Input.GetKey(KeyCode.F) && anim.)
-            {
-                anim.SetBool("isWaving", true);
-                Debug.Log("Waving");
-            }
-            else
-            {
-                anim.SetBool("isWaving", false);
-            }
-        
-
+		m_waved = Input.GetButton (m_FireButt);
+	
     }
+
+
 
 	void FixedUpdate () {
 		// Move and turn the tank.
 		Move();
 		Turn ();
+		Wave ();
 
 
+	}
+
+	void Wave(){
+		if (m_waved == true && !anim.GetBool("isWaving") )
+		{
+			anim.SetBool("isWaving", true);
+			Debug.Log("Waving");
+		}
+			
 	}
 
 	private void Move()
