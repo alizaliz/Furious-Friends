@@ -88,7 +88,8 @@ public class AIController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.attachedRigidbody)
-			other.attachedRigidbody.AddForce(Vector3.up * 10);        
+		if (other.attachedRigidbody) {
+			other.attachedRigidbody.AddForce (Vector3.up * 10); 
+		}
 	}
 }
