@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 
 
 	private List<GameObject> m_AIList;
-	private float spawnPadValue = 0.5f;
+	private float spawnPadValue = 0.0f;
 
 
 	// Use this for initialization
@@ -33,10 +33,11 @@ public class GameManager : MonoBehaviour {
 		Vector3 spawnPosition;
 		Quaternion spawnRotation;
 		GameObject AI;
+		float spawnAreaAbs = (m_groundArea.transform.lossyScale.x * 10) / 2;
 		m_AIList = new List<GameObject> ();
 		for (int i = 0; i < m_MaxAISpawnCount; i++) {
-			x = Random.Range (-m_groundArea.transform.localScale.x + spawnPadValue , m_groundArea.transform.localScale.x - spawnPadValue);
-			z = Random.Range (-m_groundArea.transform.localScale.y  + spawnPadValue, m_groundArea.transform.localScale.y- spawnPadValue);
+			x = Random.Range (-spawnAreaAbs + spawnPadValue ,spawnAreaAbs - spawnPadValue);
+			z = Random.Range (-spawnAreaAbs  + spawnPadValue, spawnAreaAbs- spawnPadValue);
 			spawnPosition = new Vector3 (x,0,z); 
 			spawnRotation =  Quaternion.Euler (0f, Random.Range (0, 90), 0f);
 			AI = Instantiate(m_aiPrefab, spawnPosition,spawnRotation) as GameObject;
