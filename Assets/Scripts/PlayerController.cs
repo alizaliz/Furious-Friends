@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody m_Rigidbody;  
 	private float m_MovementInputValue;    
 	private float m_TurnInputValue;
-    private Animator anim;
+    public Animator anim;
 
 	private bool m_waved;
 
@@ -31,9 +31,7 @@ public class PlayerController : MonoBehaviour {
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
 
-		m_waved = false;
-		anim = GetComponent<Animator> ();
-	
+		m_waved = false;	
 
 	}
 

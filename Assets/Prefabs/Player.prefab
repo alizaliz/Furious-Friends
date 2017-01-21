@@ -120,7 +120,6 @@ GameObject:
   - component: {fileID: 23681905932692766}
   - component: {fileID: 54555354333643430}
   - component: {fileID: 114050297260772312}
-  - component: {fileID: 95367316834698126}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -749,7 +748,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!95 &95003730963475594
 Animator:
   serializedVersion: 3
@@ -759,23 +758,6 @@ Animator:
   m_GameObject: {fileID: 1294737143873144}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 93d148891b6a5b841b6c27ce8cfd17d3, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95367316834698126
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1478783593888922}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b31ba1d675f4d8943b42038846bd8ecc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -799,7 +781,7 @@ MonoBehaviour:
   m_TurnSpeed: 90
   m_Instance: {fileID: 0}
   m_PlayerNumber: 0
-  anim: {fileID: 95367316834698126}
+  anim: {fileID: 95003730963475594}
 --- !u!137 &137947170218666754
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
