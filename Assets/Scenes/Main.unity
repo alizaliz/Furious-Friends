@@ -125,7 +125,7 @@ MonoBehaviour:
   m_playerPrefab: {fileID: 1478783593888922, guid: dd4b893bd5d9d4dd38e91112b1768d9c,
     type: 2}
   m_aiPrefab: {fileID: 1017232610301146, guid: a887fb20f8d3443889eddcdb59784917, type: 2}
-  m_MaxAISpawnCount: 5
+  m_MaxAISpawnCount: 100
   m_groundArea: {fileID: 882266935}
 --- !u!4 &433282859
 Transform:
@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 433282857}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 882266937}
   - component: {fileID: 882266936}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
