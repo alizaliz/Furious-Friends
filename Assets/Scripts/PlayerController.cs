@@ -37,10 +37,6 @@ public class PlayerController : MonoBehaviour {
     {
         // Check for raycast hit
         HashSet<RaycastHit> coneHits = new HashSet<RaycastHit>();
-        //Ray ray = new Ray (transform.position, transform.forward);
-
-        float shortestDist;
-        shortestDist = Mathf.Infinity;
 
         float forwardAngle = Mathf.Atan2(transform.forward.z, transform.forward.x);
         forwardAngle -= Mathf.Deg2Rad * 90.0f;
@@ -50,7 +46,7 @@ public class PlayerController : MonoBehaviour {
             float newAngle = forwardAngle + startAngleOffset + (i * (Mathf.Deg2Rad * m_ConeAngle / m_ConeRays));
             Vector3 rayDir = new Vector3(Mathf.Cos(newAngle), 0.0f, Mathf.Sin(newAngle));
             RaycastHit[] hits = Physics.RaycastAll(transform.position, rayDir, 10.0f);
-            Debug.DrawRay(transform.position, rayDir * 10.0f, Color.cyan);
+            
             foreach (RaycastHit hit in hits)
             {
                 if (hit.transform.CompareTag("Friend"))
@@ -60,40 +56,15 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        foreach (RaycastHit hit in coneHits)
-        {
-            Debug.DrawRay(hit.transform.position, hit.transform.forward * 10.0f, Color.red);
-            Debug.Log("Hit: " + hit.collider.gameObject.name);
-
-            float angle = Vector3.Dot(hit.transform.forward, transform.position - hit.transform.position);
-            if (angle > 0.9f)
-            {
-                Debug.DrawRay(hit.transform.position, Vector3.up * 4.0f, Color.yellow);
-            }
-            else
-            {
-                Debug.DrawRay(hit.transform.position, Vector3.up * 4.0f, Color.red);
-            }
-        }
     }
 
-	// Update is called once per frame
-	private void Update ()
+    // Update is called once per frame
+    private void Update ()
 	{
         if (Input.GetKeyDown(KeyCode.F))
         {
             Wave();
         }
-        //Debug.Log(hits);
-
-        //for (int i = 0; i < hits.Length; i++)
-        //{
-        //    if (hits[i].transform.tag == friends &&((hits[i].distance) < shortestDist))
-        //    {
-        //        shortestDist = Vector3.Distance(transform.position, hits[i].point);
-        //    }
-        //}
-
 
         // Store the player's input and make sure the audio for the engine is playing.
         m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
