@@ -14,21 +14,31 @@ public class PlayerController : MonoBehaviour {
 	private string m_TurnAxisName;         
 	private Rigidbody m_Rigidbody;  
 	private float m_MovementInputValue;    
-	private float m_TurnInputValue;    
+	private float m_TurnInputValue;
+    public Animator anim;
 
 
+<<<<<<< HEAD
 	// Use this for initialization
 	void Start () {
+=======
+    // Use this for initialization
+    void Start () {
+>>>>>>> 4137381427c2652b32f469724ef84c0268ea371a
 		m_Rigidbody = GetComponent<Rigidbody>();
 		m_MovementInputValue = 0f;
 		m_MovementAxisName = "Vertical" + m_PlayerNumber;
 		m_TurnAxisName = "Horizontal" + m_PlayerNumber;
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
+<<<<<<< HEAD
 
 	
 
 	}
+=======
+    }
+>>>>>>> 4137381427c2652b32f469724ef84c0268ea371a
 	
 	// Update is called once per frame
 	private void Update()
@@ -37,7 +47,18 @@ public class PlayerController : MonoBehaviour {
 		m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
 		m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
 
-	}
+        if (Input.GetKey(KeyCode.F) && anim.)
+            {
+                anim.SetBool("isWaving", true);
+                Debug.Log("Waving");
+            }
+            else
+            {
+                anim.SetBool("isWaving", false);
+            }
+        
+
+    }
 
 	void FixedUpdate () {
 		// Move and turn the tank.
