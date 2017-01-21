@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
 		Vector3 spawnPosition;
 		Quaternion spawnRotation;
 		GameObject AI;
+		m_AIList = new List<GameObject> ();
 		for (int i = 0; i < m_MaxAISpawnCount; i++) {
 			x = Random.Range (-m_groundArea.transform.localScale.x + spawnPadValue , m_groundArea.transform.localScale.x - spawnPadValue);
 			z = Random.Range (-m_groundArea.transform.localScale.y  + spawnPadValue, m_groundArea.transform.localScale.y- spawnPadValue);
