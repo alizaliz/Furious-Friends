@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 			x = Random.Range (-m_groundArea.transform.localScale.x + spawnPadValue , m_groundArea.transform.localScale.x - spawnPadValue);
 			z = Random.Range (-m_groundArea.transform.localScale.y  + spawnPadValue, m_groundArea.transform.localScale.y- spawnPadValue);
 			spawnPosition = new Vector3 (x,0,z); 
-			spawnRotation = new Quaternion.Euler (0f, Random.Range (0, 90), 0f);
+			spawnRotation =  Quaternion.Euler (0f, Random.Range (0, 90), 0f);
 			AI = Instantiate(m_aiPrefab, spawnPosition,spawnRotation) as GameObject;
 			m_AIList.Add (AI);
 
