@@ -17,6 +17,7 @@ public class AIController : MonoBehaviour {
 
 	private NavMeshAgent m_agent;
 	private Vector3 m_idleDest;
+	private float m_idleTurn;
 	private Rigidbody m_Rigidbody; 
 	private float m_prevRestTime;
 
@@ -26,13 +27,14 @@ public class AIController : MonoBehaviour {
 		following
 	}
 
-
+	 
 
 	// Use this for initialization
 	void Start () {
 		m_state = state.chilling;
 		m_idleRange = Random.Range (0, m_idleRange);
 		m_idleDest = transform.forward * m_idleRange;
+
 		m_agent.SetDestination (m_Rigidbody.position  + m_idleDest);
 		m_prevRestTime = Time.time;
 
@@ -62,10 +64,11 @@ public class AIController : MonoBehaviour {
 		// Check -> Last path is complete AND no new path AND pad time exceeded 
 		if ((m_agent.pathStatus == NavMeshPathStatus.PathComplete ) && !m_agent.pathPending && (Time.time - m_prevRestTime > m_pathDelay) )
 		{
+
+				
 				m_idleDest *= -1; // Switch direction
+
 				m_agent.SetDestination (m_Rigidbody.position  + m_idleDest); // set destingnation
-
-
 
 				m_prevRestTime = Time.time; // update time
 
