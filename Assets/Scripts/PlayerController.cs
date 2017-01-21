@@ -9,14 +9,9 @@ public class PlayerController : MonoBehaviour {
     public float m_ConeAngle;
 
 	public float m_Speed = 1;
-	public float m_TurnSpeed = 2;
-	  
-	[HideInInspector] public GameObject m_Instance; 
-	[HideInInspector] public int m_PlayerNumber;            // This specifies which player this the manager for.
-
+	public float m_TurnSpeed =  2;
 	private string m_MovementAxisName;     
 	private string m_TurnAxisName;         
-	private string m_FireButt;   
 	private Rigidbody m_Rigidbody;  
 	private float m_MovementInputValue;    
 	private float m_TurnInputValue;
@@ -27,22 +22,15 @@ public class PlayerController : MonoBehaviour {
     public Transform playerPosition;
     // Wave range from player to AI
     public float raycastDist = 500f;
-    public Animator anim;
 
-	private bool m_waved;
-
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
 		m_Rigidbody = GetComponent<Rigidbody>();
 		m_MovementInputValue = 0f;
-		m_MovementAxisName = "Vertical" + m_PlayerNumber;
-		m_TurnAxisName = "Horizontal" + m_PlayerNumber;
-		m_FireButt = "Fire" + + m_PlayerNumber;
+		m_MovementAxisName = "Vertical";
+		m_TurnAxisName = "Horizontal";
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
-
-		m_waved = false;	
-
 	}
 	
     private void Wave()
@@ -68,34 +56,33 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if (m_waved == true && !anim.GetBool("isWaving"))
-        {
-            anim.SetBool("isWaving", true);
-            Debug.Log("Waving");
-        }
     }
 
-
-	// Update is called once per frame
-	private void Update()
+    // Update is called once per frame
+    private void Update ()
 	{
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Wave();
+        }
+
         // Store the player's input and make sure the audio for the engine is playing.
         m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
-		m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
-		m_waved = Input.GetButton (m_FireButt);
-	
+        m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
+
     }
 
 	void FixedUpdate () {
-		// Move and turn the player.
+		// Move and turn the tank.
 		Move();
 		Turn ();
-		Wave ();
+
+
 	}
 
 	private void Move()
 	{
-		// Adjust the position of the player based on the player's input.
+		// Adjust the position of the tank based on the player's input.
 
 		Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
 
@@ -105,7 +92,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void Turn()
 	{
-		// Adjust the rotation of the player based on the player's input.
+		// Adjust the rotation of the tank based on the player's input.
 
 		float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
 
@@ -122,7 +109,6 @@ public class PlayerController : MonoBehaviour {
 			AIController ai = other.GetComponent<AIController>();
 			ai.m_target = m_Rigidbody.transform;
 			ai.m_state = AIController.state.following;
-			 
 		}
 	}
 }
