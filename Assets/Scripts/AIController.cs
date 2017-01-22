@@ -81,8 +81,7 @@ public class AIController : MonoBehaviour {
 		if ((  m_agent.pathStatus == NavMeshPathStatus.PathComplete ) &&
                !m_agent.pathPending &&
                (Time.time - m_prevRestTime > m_pathDelay) &&
-               (m_agent.destination != m_target.position &&
-               PlayerController.m_looking == true)) {
+               (m_agent.destination != m_target.position)) {
 
 			m_agent.SetDestination (m_target.position); // set destingnation
 
