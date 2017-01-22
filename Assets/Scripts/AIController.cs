@@ -11,6 +11,8 @@ public class AIController : MonoBehaviour {
 	public float m_pathDelay;
 
 	public float m_idleRange = 2;
+    
+    public ParticleSystem LoveEmitter;
 
 	[HideInInspector]
 	public state m_state;
@@ -20,15 +22,14 @@ public class AIController : MonoBehaviour {
 	private float m_idleTurn;
 	private Rigidbody m_Rigidbody; 
 	private float m_prevRestTime;
+    
 
 	public enum state
 	{
 		chilling,
 		following
 	}
-
-	 
-
+    
 	// Use this for initialization
 	void Start () {
 		m_state = state.chilling;
@@ -37,14 +38,11 @@ public class AIController : MonoBehaviour {
 
 		m_agent.SetDestination (m_Rigidbody.position  + m_idleDest);
 		m_prevRestTime = Time.time;
-
 	}
 
 	void Awake(){
-
 		m_agent = GetComponent<NavMeshAgent>();
 		m_Rigidbody = GetComponent<Rigidbody>();
-
 	}
 
 	// Update is called once per frame
@@ -64,16 +62,12 @@ public class AIController : MonoBehaviour {
 		// Check -> Last path is complete AND no new path AND pad time exceeded 
 		if ((m_agent.pathStatus == NavMeshPathStatus.PathComplete ) && !m_agent.pathPending && (Time.time - m_prevRestTime > m_pathDelay) )
 		{
+			m_idleDest *= -1; // Switch direction
 
-				
-				m_idleDest *= -1; // Switch direction
+			m_agent.SetDestination (m_Rigidbody.position  + m_idleDest); // set destination
 
-				m_agent.SetDestination (m_Rigidbody.position  + m_idleDest); // set destingnation
-
-				m_prevRestTime = Time.time; // update time
-
+			m_prevRestTime = Time.time; // update time
 		}
-
 	}
 
 	void Following (){
@@ -81,17 +75,22 @@ public class AIController : MonoBehaviour {
 		if ((  m_agent.pathStatus == NavMeshPathStatus.PathComplete ) &&
                !m_agent.pathPending &&
                (Time.time - m_prevRestTime > m_pathDelay) &&
-               (m_agent.destination != m_target.position &&
-               PlayerController.m_looking == true)) {
+               (m_agent.destination != m_target.position)) {
 
 			m_agent.SetDestination (m_target.position); // set destingnation
 
 			m_prevRestTime = Time.time; // update time
-
 		}
 	}
 
-	void OnTriggerEnter(Collider other) {
+    public void LoveTrigger()
+    {
+        LoveEmitter.GetComponent<ParticleSystem>().Play();
+        
+        Debug.Log(LoveEmitter.IsAlive());
+    }
+
+    void OnTriggerEnter(Collider other) {
 		if (other.attachedRigidbody) {
 			other.attachedRigidbody.AddForce (Vector3.up * 10); 
 		}
