@@ -1640,6 +1640,11 @@ Prefab:
       propertyPath: m_groundArea
       value: 
       objectReference: {fileID: 2104397868}
+    - target: {fileID: 114346637864223092, guid: f0e07208accf8554d9600081a3ca1d66,
+        type: 2}
+      propertyPath: m_MaxAISpawnCount
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f0e07208accf8554d9600081a3ca1d66, type: 2}
   m_IsPrefabParent: 0
