@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     private float m_DeadHeight = -5.0f;
 
     public Animator anim;
+    public ParticleSystem WaveEmitter;
 
     private bool m_waved;
     public static bool m_looking;
@@ -63,49 +64,54 @@ public class PlayerController : MonoBehaviour {
         }
 	}
 
-	void Wave(){
+    void Wave() {
         // Check for raycast hit
-        // Check for raycast hit
-        HashSet<RaycastHit> coneHits = new HashSet<RaycastHit>();
+        if (m_waved) {
+            WaveEmitter.GetComponent<ParticleSystem>().Play();
 
-        float forwardAngle = Mathf.Atan2(transform.forward.z, transform.forward.x);
-        forwardAngle -= Mathf.Deg2Rad * 90.0f;
-        float startAngleOffset = (Mathf.Deg2Rad * m_ConeAngle) / 2.0f;
+            HashSet<RaycastHit> coneHits = new HashSet<RaycastHit>();
 
-        for (int i = 0; i < m_ConeRays; i++)
-        {
-            float newAngle = forwardAngle + startAngleOffset + (i * (Mathf.Deg2Rad * m_ConeAngle / m_ConeRays));
-            Vector3 rayDir = new Vector3(Mathf.Cos(newAngle), 0.0f, Mathf.Sin(newAngle));
-            RaycastHit[] hits = Physics.RaycastAll(transform.position + Vector3.up, rayDir, 10.0f);
-            //Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + rayDir * 10.0f);
+            float forwardAngle = Mathf.Atan2(transform.forward.z, transform.forward.x);
+            forwardAngle -= Mathf.Deg2Rad * 90.0f;
+            float startAngleOffset = (Mathf.Deg2Rad * m_ConeAngle) / 2.0f;
 
-            foreach (RaycastHit hit in hits)
+            for (int i = 0; i < m_ConeRays; i++)
             {
-                //Debug.DrawLine(transform.position, hit.transform.position, Color.blue);
+                float newAngle = forwardAngle + startAngleOffset + (i * (Mathf.Deg2Rad * m_ConeAngle / m_ConeRays));
+                Vector3 rayDir = new Vector3(Mathf.Cos(newAngle), 0.0f, Mathf.Sin(newAngle));
+                RaycastHit[] hits = Physics.RaycastAll(transform.position + Vector3.up, rayDir, 10.0f);
+                //Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + rayDir * 10.0f);
 
-                if (hit.transform.CompareTag("Friend"))
+                foreach (RaycastHit hit in hits)
                 {
-                    coneHits.Add(hit);
+                    //Debug.DrawLine(transform.position, hit.transform.position, Color.blue);
+
+                    if (hit.transform.CompareTag("Friend"))
+                    {
+                        coneHits.Add(hit);
+                    }
                 }
             }
-        }
 
-        foreach (RaycastHit hit in coneHits)
-        {
-            Debug.Log("here");
-            Debug.DrawLine(hit.transform.position, transform.position, Color.red);
-            float dot = Vector2.Dot(new Vector2(hit.transform.forward.x, hit.transform.forward.z), new Vector2(transform.position.x - hit.transform.position.x, transform.position.z - hit.transform.position.z));
-            if (dot > 0.9f)
+            foreach (RaycastHit hit in coneHits)
             {
-                //Debug.DrawLine(hit.transform.position, hit.transform.position + Vector3.up, Color.green, 5.0f);
+                Debug.Log("here");
+                Debug.DrawLine(hit.transform.position, transform.position, Color.red);
+                float dot = Vector2.Dot(new Vector2(hit.transform.forward.x, hit.transform.forward.z), new Vector2(transform.position.x - hit.transform.position.x, transform.position.z - hit.transform.position.z));
+                if (dot > 0.9f)
+                {
+                    //Debug.DrawLine(hit.transform.position, hit.transform.position + Vector3.up, Color.green, 5.0f);
 
-                AIController ai = hit.collider.GetComponent<AIController>();
-                ai.m_target = m_Rigidbody.transform;
-                ai.m_state = AIController.state.following;
-            }
-            else
-            {
-                //Debug.DrawLine(hit.transform.position, hit.transform.position + Vector3.up, Color.red, 5.0f);
+                    AIController ai = hit.collider.GetComponent<AIController>();
+                    ai.m_target = m_Rigidbody.transform;
+                    ai.m_state = AIController.state.following;
+
+                    ai.LoveTrigger();
+                }
+                else
+                {
+                    //Debug.DrawLine(hit.transform.position, hit.transform.position + Vector3.up, Color.red, 5.0f);
+                }
             }
         }
         if (m_waved == true && !anim.GetBool("isWaving") )
