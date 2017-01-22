@@ -16,10 +16,11 @@ public class PlayerManager : MonoBehaviour {
 	public void Setup () {
 		// Get references to the components.
 		m_Player = m_Instance.GetComponent<PlayerController> ();
-//		m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas> ().gameObject;
+        //m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas> ().gameObject;
 
 		// Set the player numbers to be consistent across the scripts.
 		m_Player.m_PlayerNumber = m_PlayerNumber;
+        m_Player.m_SpawnPoint = m_SpawnPoint;
 
 	}
 	
