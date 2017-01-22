@@ -554,6 +554,7 @@ GameObject:
   - component: {fileID: 339865965}
   - component: {fileID: 339865964}
   - component: {fileID: 339865963}
+  - component: {fileID: 339865966}
   m_Layer: 0
   m_Name: P2
   m_TagString: Untagged
@@ -625,12 +626,25 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 339865962}
   m_LocalRotation: {x: 0.5129505, y: 0.58651245, z: -0.3365262, w: 0.5288053}
-  m_LocalPosition: {x: 0.89, y: 5.33, z: -0.17}
+  m_LocalPosition: {x: -3.11, y: 4.39, z: -1.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 69.596, y: 127.91301, z: 44.829002}
+--- !u!114 &339865966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339865962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b100a573c25d1624bbe9c2d3ba923a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 2
+  speed: 2
 --- !u!1001 &372701296
 Prefab:
   m_ObjectHideFlags: 0
@@ -2099,6 +2113,7 @@ GameObject:
   - component: {fileID: 1446067312}
   - component: {fileID: 1446067311}
   - component: {fileID: 1446067310}
+  - component: {fileID: 1446067313}
   m_Layer: 0
   m_Name: P1
   m_TagString: Untagged
@@ -2170,12 +2185,25 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1446067309}
   m_LocalRotation: {x: 0.58847874, y: 0.18799193, z: -0.25518242, w: 0.7437969}
-  m_LocalPosition: {x: -8.32, y: 6.93, z: 7.67}
+  m_LocalPosition: {x: -0.93, y: 6.39, z: 6.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: -256.255, y: 175.006, z: -221.793}
+--- !u!114 &1446067313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1446067309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b100a573c25d1624bbe9c2d3ba923a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 2
+  speed: 2
 --- !u!1 &1453887889
 GameObject:
   m_ObjectHideFlags: 0
