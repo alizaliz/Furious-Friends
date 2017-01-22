@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour {
 	public int m_MaxAISpawnCount;
 	public GameObject m_groundArea;
 
-	private List<GameObject> m_AIList;
+    public AudioSource m_MainMusic;
+    public AudioScript m_AudioSystem;
+    public AudioClip[] m_Voices;
+    public List<GameObject> m_AIList;
 	private float spawnPadValue = 0.0f;
 
 
@@ -22,7 +25,8 @@ public class GameManager : MonoBehaviour {
 		SpawnAllPlayers ();
 		SpawnAllAI ();
 		SetCameraTargets ();
-	}
+        m_MainMusic.Play();
+    }
 
 	private void SpawnAllAI()
 	{
@@ -39,8 +43,8 @@ public class GameManager : MonoBehaviour {
 			spawnPosition = new Vector3 (x,0,z); 
 			spawnRotation =  Quaternion.Euler (0f, Random.Range (0, 90), 0f);
 			AI = Instantiate(m_aiPrefab, spawnPosition,spawnRotation) as GameObject;
-			m_AIList.Add (AI);
 
+            m_AIList.Add (AI);
 		}
 	}
 
@@ -53,7 +57,8 @@ public class GameManager : MonoBehaviour {
 			m_players[i].m_Instance =
 				Instantiate(m_playerPrefab, m_players[i].m_SpawnPoint.position, m_players[i].m_SpawnPoint.rotation) as GameObject;
 			m_players[i].m_PlayerNumber = i + 1;
-			m_players[i].Setup();
+            m_players[i].m_Voice = m_Voices[i];
+            m_players[i].Setup();
 		}
 	}
 

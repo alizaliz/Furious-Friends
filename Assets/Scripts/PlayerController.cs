@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour {
     private bool m_waved;
     public static bool m_looking;
 
+    public AudioSource m_VoiceSource;
+    public AudioClip m_VoiceClip;
+
 
     // Use this for initialization
     void Start () {
@@ -38,6 +41,8 @@ public class PlayerController : MonoBehaviour {
         m_FireButt = "Fire" + m_PlayerNumber;
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
+
+        m_VoiceSource = gameObject.AddComponent<AudioSource>();
 
         m_waved = false;
         m_looking = false;
@@ -67,6 +72,11 @@ public class PlayerController : MonoBehaviour {
     void Wave() {
         // Check for raycast hit
         if (m_waved) {
+            if (!m_VoiceSource.isPlaying)
+            {
+                m_VoiceSource.PlayOneShot(m_VoiceClip);
+            }
+
             WaveEmitter.GetComponent<ParticleSystem>().Play();
 
             HashSet<RaycastHit> coneHits = new HashSet<RaycastHit>();

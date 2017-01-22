@@ -22,9 +22,13 @@ public class AIController : MonoBehaviour {
 	private float m_idleTurn;
 	private Rigidbody m_Rigidbody; 
 	private float m_prevRestTime;
-    
 
-	public enum state
+
+    public AudioClip[] m_VoiceClips;
+    public AudioClip m_Voice;
+    public AudioSource m_VoiceSource;
+
+    public enum state
 	{
 		chilling,
 		following
@@ -38,7 +42,13 @@ public class AIController : MonoBehaviour {
 
 		m_agent.SetDestination (m_Rigidbody.position  + m_idleDest);
 		m_prevRestTime = Time.time;
-	}
+
+        var RandNumber = (int)Mathf.Floor(Random.Range(0.0f, 5.0f));
+
+        m_Voice = m_VoiceClips[RandNumber];
+
+        m_VoiceSource = gameObject.AddComponent<AudioSource>();
+    }
 
 	void Awake(){
 		m_agent = GetComponent<NavMeshAgent>();
@@ -86,7 +96,12 @@ public class AIController : MonoBehaviour {
     public void LoveTrigger()
     {
         LoveEmitter.GetComponent<ParticleSystem>().Play();
-        
+
+        if (!m_VoiceSource.isPlaying)
+        {
+            m_VoiceSource.PlayOneShot(m_Voice);
+        }
+
         Debug.Log(LoveEmitter.IsAlive());
     }
 

@@ -8,10 +8,10 @@ public class PlayerManager : MonoBehaviour {
 	[HideInInspector] public int m_PlayerNumber;    
 	[HideInInspector] public GameObject m_Instance;
 
-
-	private PlayerController m_Player;
-	private GameObject m_CanvasGameObject;  
-
+    
+    public PlayerController m_Player;
+	private GameObject m_CanvasGameObject;
+    public AudioClip m_Voice;
 	// Use this for initialization
 	public void Setup () {
 		// Get references to the components.
@@ -21,8 +21,9 @@ public class PlayerManager : MonoBehaviour {
 		// Set the player numbers to be consistent across the scripts.
 		m_Player.m_PlayerNumber = m_PlayerNumber;
         m_Player.m_SpawnPoint = m_SpawnPoint;
-
-	}
+        m_Player.m_VoiceClip = m_Voice;
+        //Debug.Log("Player Voice: " + m_Player.m_Voice.clip);
+    }
 	
 	// Used during the phases of the game where the player shouldn't be able to control their tank.
 	public void DisableControl ()

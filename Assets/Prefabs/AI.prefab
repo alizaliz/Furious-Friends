@@ -158,6 +158,14 @@ MonoBehaviour:
   m_idleRange: 5
   LoveEmitter: {fileID: 198192650093111380}
   m_state: 1
+  m_VoiceClips:
+  - {fileID: 8300000, guid: 14a2a02ad52e6fe4ca59ab212f4a864c, type: 3}
+  - {fileID: 8300000, guid: 16cf3949a395e3d4ca974ac9bd6f97b4, type: 3}
+  - {fileID: 8300000, guid: 49255fba4747e4e4d9aeac024c3c8bdb, type: 3}
+  - {fileID: 8300000, guid: 87057cb930bea944f934bfe213d247b9, type: 3}
+  - {fileID: 8300000, guid: cd8c21f99a5ea9649b3fb679380ab84b, type: 3}
+  m_Voice: {fileID: 0}
+  m_VoiceSource: {fileID: 0}
 --- !u!195 &195184157052542142
 NavMeshAgent:
   m_ObjectHideFlags: 1
