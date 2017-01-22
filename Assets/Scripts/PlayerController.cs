@@ -28,10 +28,10 @@ public class PlayerController : MonoBehaviour {
     void Start () {
 
 		m_Rigidbody = GetComponent<Rigidbody>();
-		m_MovementInputValue = 0f;
+
 		m_MovementAxisName = "Vertical" + m_PlayerNumber;
 		m_TurnAxisName = "Horizontal" + m_PlayerNumber;
-		m_FireButt = "Fire" + + m_PlayerNumber;
+        m_FireButt = "Fire" + m_PlayerNumber;
 		m_MovementInputValue = 0f;
 		m_TurnInputValue = 0f;
 
@@ -48,15 +48,11 @@ public class PlayerController : MonoBehaviour {
 		m_waved = Input.GetButton (m_FireButt);
     }
 
-
-
 	void FixedUpdate () {
 		// Move and turn the tank.
 		Move();
 		Turn ();
 		Wave ();
-
-
 	}
 
 	void Wave(){
@@ -86,17 +82,41 @@ public class PlayerController : MonoBehaviour {
 			anim.SetBool("isWaving", true);
 			Debug.Log("Waving");
 		}
+        else if (m_waved == false && anim.GetBool("isWaving"))
+        {
+            anim.SetBool("isWaving", false);
+        }
 			
 	}
 
 	private void Move()
 	{
-		// Adjust the position of the tank based on the player's input.
+		// Adjust the position of the tank based on the player's input. Can't move while waving.
+        if (!m_waved)
+        {
+		    Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
 
-		Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+		    m_Rigidbody.MovePosition (m_Rigidbody.position + movement);
 
-		m_Rigidbody.MovePosition (m_Rigidbody.position + movement);
-	}
+            if ((m_MovementInputValue > 0.1f || m_MovementInputValue < -0.1f) && !anim.GetBool("isWalking"))
+            {
+                anim.SetBool("isWalking", true);
+
+                Debug.Log("Walking");
+            }
+            else if (m_MovementInputValue == 0.0f && anim.GetBool("isWalking"))
+            {
+                anim.SetBool("isWalking", false);
+            }
+        }
+        // Making sure we disable walking and switch to waving if trying to wave while walking
+        else if (!anim.GetBool("isWaving") && m_waved)
+        {
+            anim.SetBool("isWalking", false);
+
+            anim.SetBool("isWaving", false);
+        }
+    }
 
 
 	private void Turn()
