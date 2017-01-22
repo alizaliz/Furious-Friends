@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour {
 
             foreach (RaycastHit hit in coneHits)
             {
-                Debug.Log("here");
+                //Debug.Log("here");
                 Debug.DrawLine(hit.transform.position, transform.position, Color.red);
                 float dot = Vector2.Dot(new Vector2(hit.transform.forward.x, hit.transform.forward.z), new Vector2(transform.position.x - hit.transform.position.x, transform.position.z - hit.transform.position.z));
                 if (dot > 0.9f)
@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour {
                     ai.m_state = AIController.state.following;
 
                     ai.LoveTrigger();
+					ai.WaveTrigger ();
                 }
                 else
                 {

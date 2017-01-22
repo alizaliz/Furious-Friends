@@ -752,6 +752,7 @@ MonoBehaviour:
   m_followDistance: 3
   m_pathDelay: 2
   m_idleRange: 5
+  anim: {fileID: 95990057213368096}
   LoveEmitter: {fileID: 198192650093111380}
   m_state: 1
 --- !u!137 &137212892266549692

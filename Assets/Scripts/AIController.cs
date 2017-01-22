@@ -11,7 +11,8 @@ public class AIController : MonoBehaviour {
 	public float m_pathDelay;
 
 	public float m_idleRange = 2;
-    
+	public Animator anim;
+
     public ParticleSystem LoveEmitter;
 
 	[HideInInspector]
@@ -22,7 +23,7 @@ public class AIController : MonoBehaviour {
 	private float m_idleTurn;
 	private Rigidbody m_Rigidbody; 
 	private float m_prevRestTime;
-    
+	//private bool m_waved;
 
 	public enum state
 	{
@@ -38,6 +39,7 @@ public class AIController : MonoBehaviour {
 
 		m_agent.SetDestination (m_Rigidbody.position  + m_idleDest);
 		m_prevRestTime = Time.time;
+
 	}
 
 	void Awake(){
@@ -54,6 +56,17 @@ public class AIController : MonoBehaviour {
 		case state.following:
 			Following ();
 			break;
+		}
+
+		if (!anim.GetBool("isWalking"))
+		{
+			anim.SetBool("isWalking", true);
+
+			Debug.Log("Walking");
+		}
+		else if ( anim.GetBool("isWaving"))
+		{
+			anim.SetBool("isWalking", false);
 		}
 	}
 
@@ -72,15 +85,36 @@ public class AIController : MonoBehaviour {
 
 	void Following (){
 		// Check -> Last path is complete AND no new path AND pad time exceeded AND target has new destination
-		if ((  m_agent.pathStatus == NavMeshPathStatus.PathComplete ) &&
+		if (((  m_agent.pathStatus == NavMeshPathStatus.PathComplete ) &&
                !m_agent.pathPending &&
                (Time.time - m_prevRestTime > m_pathDelay) &&
-               (m_agent.destination != m_target.position)) {
+			(m_agent.destination != m_target.position) ) 
+			|| (Time.time - m_prevRestTime > m_pathDelay && anim.GetBool("isWaving")) ){
+
+			if(anim.GetBool("isWaving"))
+				anim.SetBool("isWaving", false);
+			m_agent.Resume();
 
 			m_agent.SetDestination (m_target.position); // set destingnation
 
 			m_prevRestTime = Time.time; // update time
+
 		}
+
+
+	}
+
+	public void WaveTrigger()
+	{
+		Debug.Log("Waving Trigger!");
+		if (!anim.GetBool("isWaving") )
+		{
+			m_agent.Stop ();
+			anim.SetBool("isWaving", true);
+			Debug.Log("Waving Trigger!");
+
+		}
+
 	}
 
     public void LoveTrigger()
