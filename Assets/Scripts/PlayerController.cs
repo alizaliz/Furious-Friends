@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour {
             foreach (RaycastHit hit in coneHits)
             {
                 //Debug.Log("here");
-                Debug.DrawLine(hit.transform.position, transform.position, Color.red);
+                //Debug.DrawLine(hit.transform.position, transform.position, Color.red);
                 float dot = Vector2.Dot(new Vector2(hit.transform.forward.x, hit.transform.forward.z), new Vector2(transform.position.x - hit.transform.position.x, transform.position.z - hit.transform.position.z));
                 if (dot > 0.9f)
                 {
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour {
         if (m_waved == true && !anim.GetBool("isWaving") )
 		{
 			anim.SetBool("isWaving", true);
-			Debug.Log("Waving");
+			//Debug.Log("Waving");
 		}
         else if (m_waved == false && anim.GetBool("isWaving"))
         {
@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour {
             {
                 anim.SetBool("isWalking", true);
 
-                Debug.Log("Walking");
+                //Debug.Log("Walking");
             }
             else if (m_MovementInputValue == 0.0f && anim.GetBool("isWalking"))
             {
