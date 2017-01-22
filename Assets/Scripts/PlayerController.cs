@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
 		// Store the player's input and make sure the audio for the engine is playing.
 		m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
 		m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
-		m_waved = Input.GetButton (m_FireButt);
+		m_waved = Input.GetButtonDown (m_FireButt);
     }
 
 	void FixedUpdate () {
