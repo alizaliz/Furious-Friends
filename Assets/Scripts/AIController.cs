@@ -23,10 +23,9 @@ public class AIController : MonoBehaviour {
 	private float m_idleTurn;
 	private Rigidbody m_Rigidbody; 
 	private float m_prevRestTime;
-<<<<<<< HEAD
-=======
+
 	//private bool m_waved;
->>>>>>> bb58c101af50f31f76f120f2089897bab6b06937
+
 
 
     public AudioClip[] m_VoiceClips;
